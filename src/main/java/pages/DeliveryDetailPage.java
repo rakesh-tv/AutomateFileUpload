@@ -15,8 +15,16 @@ public class DeliveryDetailPage extends WebWaits {
     By returnFileUpload = By.xpath("//*[contains(@class,'techouts_widgets_tshipdeliverytatwidget')]//input[@name]");
     By fileUploadSuccessMsg = By.xpath("//*[contains(@class,'label') and text()='File uploaded successfully']");
     By fileUploadSuccessOKButton = By.xpath("//button[text()='OK']");
+    By uploadFileErrorMessage = By.xpath("//*[contains(@class,'error_class') and contains(text(),'Unable to Upload File Please try again')]");
+    By uploadFileIncorrectNameErrorMessage = By.xpath("//*[contains(@class,'error_class') and contains(text(),'Return File Name Should Starts With ReturnLogisticsServiceability')]");
 
     WebDriver driver;
+
+    public enum UploadStatus{
+        SUCCESSS,
+        INCORRECT_FILE_NAME,
+        OTHER_ERROR
+    }
 
     public DeliveryDetailPage(WebDriver driver) {
         this.driver = driver;
@@ -32,14 +40,18 @@ public class DeliveryDetailPage extends WebWaits {
         getElement(deliverItem).click();
     }
 
-    public Boolean uploadFileAndReturnResult(String filePath){
-        Boolean uploadSuccess = false;
+    public UploadStatus uploadFileAndReturnResult(String filePath){
         waitForSomeTime(5);
         driver.findElement(returnFileUpload).sendKeys(filePath);
-        waitForSomeTime(30);
-        uploadSuccess = getElement(fileUploadSuccessMsg).isDisplayed();
-        if(driver.findElements(fileUploadSuccessOKButton).size() > 0) getElement(fileUploadSuccessOKButton).click();
-        return uploadSuccess;
+        if(waitForElementToBeVisible(fileUploadSuccessMsg, 30)) {
+            getElement(fileUploadSuccessOKButton).click();
+            return UploadStatus.SUCCESSS;
+        }
+        else if(waitForElementToBeVisible(uploadFileIncorrectNameErrorMessage, 30))
+            return UploadStatus.INCORRECT_FILE_NAME;
+        else
+            return UploadStatus.OTHER_ERROR;
+
     }
 
 
