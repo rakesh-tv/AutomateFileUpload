@@ -26,6 +26,18 @@ public class WebWaits extends Base{
         }
     }
 
+    public Boolean waitForElementToBeVisible(By locator, long timeInSeconds) {
+        wait = new WebDriverWait(driver, timeInSeconds);
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException se) {
+            return false;
+        }
+        return true;
+    }
+
     public void waitForSomeTime(int seconds){
         try{
             Thread.sleep(seconds * 1000);

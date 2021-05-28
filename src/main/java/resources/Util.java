@@ -5,7 +5,6 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class Util {
@@ -20,6 +19,11 @@ public class Util {
             }
         }
         return filePaths;
+    }
+
+    public static Boolean checkReturnFileName(String fileName){
+        String[] temp = fileName.split(File.separator);
+        return temp[temp.length-1].startsWith("ReturnLogisticsServiceability");
     }
 
 

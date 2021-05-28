@@ -1,5 +1,8 @@
 package resources;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,9 +20,12 @@ public class Base {
 	public WebDriver driver;
 	public static Properties prop;
 	public static WebDriverWait wait;
+	public static ExtentTest test;
+	public static ExtentReports extent;
+
 
 	public WebDriver initializeDriver() {
-
+		initializeExtent();
 		try {
 			prop = new Properties();
 			FileInputStream fs = new FileInputStream(System.getProperty("user.dir") + File.separator+"data.properties");
@@ -38,14 +44,14 @@ public class Base {
 
 	}
 
-	public String getScreenShotPath(String testCaseName, WebDriver driver) throws IOException {
-		TakesScreenshot ts = (TakesScreenshot) driver;
-		File source = ts.getScreenshotAs(OutputType.FILE);
-		String destinationFile = System.getProperty("user.dir") + "\\reports\\" + testCaseName + ".png";
-		FileUtils.copyFile(source, new File(destinationFile));
-		return destinationFile;
+	public void initializeExtent(){
+		String path =System.getProperty("user.dir")+ File.separator +"reports"+File.separator+"report.html";
+		ExtentSparkReporter reporter = new ExtentSparkReporter(path);
+		reporter.config().setReportName("Web Automation Results");
+		reporter.config().setDocumentTitle("Test Results");
 
-
+		extent =new ExtentReports();
+		extent.attachReporter(reporter);
 	}
 
 }
