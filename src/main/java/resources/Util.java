@@ -21,5 +21,10 @@ public class Util {
         return filePaths;
     }
 
+    public static Boolean checkReturnFileName(String fileName){
+        String[] temp = fileName.split(File.separator);
+        return temp[temp.length-1].startsWith("ReturnLogisticsServiceability");
+    }
+
 
 }

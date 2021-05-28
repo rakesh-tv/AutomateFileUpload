@@ -17,14 +17,9 @@ public class DeliveryDetailPage extends WebWaits {
     By fileUploadSuccessOKButton = By.xpath("//button[text()='OK']");
     By uploadFileErrorMessage = By.xpath("//*[contains(@class,'error_class') and contains(text(),'Unable to Upload File Please try again')]");
     By uploadFileIncorrectNameErrorMessage = By.xpath("//*[contains(@class,'error_class') and contains(text(),'Return File Name Should Starts With ReturnLogisticsServiceability')]");
+    By ddOnSignIn = By.xpath("//*[contains(@class,'caption') and text()='Tata BUC']");
 
     WebDriver driver;
-
-    public enum UploadStatus{
-        SUCCESSS,
-        INCORRECT_FILE_NAME,
-        OTHER_ERROR
-    }
 
     public DeliveryDetailPage(WebDriver driver) {
         this.driver = driver;
@@ -40,17 +35,15 @@ public class DeliveryDetailPage extends WebWaits {
         getElement(deliverItem).click();
     }
 
-    public UploadStatus uploadFileAndReturnResult(String filePath){
-        waitForSomeTime(5);
+    public Boolean uploadFileAndReturnResult(String filePath){
+        waitForElementToBeVisible(ddOnSignIn, 30);
         driver.findElement(returnFileUpload).sendKeys(filePath);
         if(waitForElementToBeVisible(fileUploadSuccessMsg, 30)) {
             getElement(fileUploadSuccessOKButton).click();
-            return UploadStatus.SUCCESSS;
+            return true;
         }
-        else if(waitForElementToBeVisible(uploadFileIncorrectNameErrorMessage, 30))
-            return UploadStatus.INCORRECT_FILE_NAME;
         else
-            return UploadStatus.OTHER_ERROR;
+            return false;
 
     }
 
