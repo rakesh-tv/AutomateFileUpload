@@ -9,7 +9,6 @@ import pages.LoginPage;
 import resources.Base;
 import resources.EmailUtil;
 import resources.Util;
-import resources.WebWaits;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,10 +32,10 @@ public class FileUploadValidation extends Base {
 
         if (new File(file).getAbsoluteFile().length() > 5242880) {
             test.log(Status.FAIL, "File size too big. File name : " + file);
-            Assert.fail();}
+            Assert.fail("File size too big. File name : " + file);}
         else if(!Util.checkReturnFileName(file)){
-            test.log(Status.FAIL, "Incorrect file name. Return File Name Should Starts With ReturnLogisticsServiceability.\n File name : " + file);
-            Assert.fail();}
+            test.log(Status.FAIL, "Incorrect file name. Return File Name Should Start With ReturnLogisticsServiceability.\n File name : " + file);
+            Assert.fail("Incorrect file name. Return File Name Should Start With ReturnLogisticsServiceability.\n File name : " + file);}
         else if (new DeliveryDetailPage(driver).uploadFileAndReturnResult(file))
             test.log(Status.PASS, "File name : " + file);
         else{

@@ -11,7 +11,7 @@ import javax.mail.internet.*;
 public class EmailUtil {
     public void emailReport() {
         // Recipient's email ID needs to be mentioned.
-        String to = "rockmail.yadav@gmail.com";
+        String to = Base.prop.get("Email_To_Address").toString();
 
         // Sender's email ID needs to be mentioned
         String from = "tatacliqtestupload@gmail.com";
