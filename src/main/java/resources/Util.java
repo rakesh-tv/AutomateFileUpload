@@ -6,6 +6,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class Util {
     public ArrayList<String> getFilesToUpload() {
@@ -23,7 +24,8 @@ public class Util {
     }
 
     public static Boolean checkReturnFileName(String fileName){
-        String[] temp = fileName.split(File.separator);
+        String pattern = Pattern.quote(System.getProperty("file.separator"));
+        String[] temp = fileName.split(pattern);
         return temp[temp.length-1].startsWith("ReturnLogisticsServiceability");
     }
 
