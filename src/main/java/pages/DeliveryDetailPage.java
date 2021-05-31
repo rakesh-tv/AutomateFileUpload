@@ -27,7 +27,7 @@ public class DeliveryDetailPage extends WebWaits {
     }
 
     public void selectTshipDelivery() {
-        waitForSomeTime(45);
+        waitForElementToBeVisible(ddOnSignIn, 30);
         List<WebElement> filerElements = driver.findElements(deliveryFilter)
                                         .stream().filter(element -> element.isDisplayed())
                                         .collect(Collectors.toList());
@@ -36,15 +36,17 @@ public class DeliveryDetailPage extends WebWaits {
     }
 
     public Boolean uploadFileAndReturnResult(String filePath){
-        waitForElementToBeVisible(ddOnSignIn, 30);
+        waitForSomeTime(5);
         driver.findElement(returnFileUpload).sendKeys(filePath);
         if(waitForElementToBeVisible(fileUploadSuccessMsg, 30)) {
             getElement(fileUploadSuccessOKButton).click();
+            waitForSomeTime(300); //wait 5 mins after every upload
             return true;
         }
-        else
+        else{
+            waitForSomeTime(300); //wait 5 mins after every upload
             return false;
-
+        }
     }
 
 

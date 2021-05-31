@@ -8,6 +8,7 @@ import pages.DeliveryDetailPage;
 import pages.LoginPage;
 import resources.Base;
 import resources.Util;
+import resources.WebWaits;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class FileUploadValidation extends Base {
         else{
             test.log(Status.FAIL, "Upload Failed. File name : " + file);
             Assert.fail();}
+
     }
 
     @AfterClass

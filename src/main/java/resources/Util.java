@@ -13,7 +13,8 @@ public class Util {
         FileFilter fileFilter = new WildcardFileFilter("*.csv", IOCase.INSENSITIVE);
         File[] listOfFiles = folder.listFiles(fileFilter);
         ArrayList<String> filePaths = new ArrayList<>();
-        for (int i = 0; i < listOfFiles.length; i++) {
+        int numberOfFiles = Math.min(listOfFiles.length, 30);
+        for (int i = 0; i < numberOfFiles; i++) {
             if (listOfFiles[i].isFile()) {
                 filePaths.add(folder+ File.separator+listOfFiles[i].getName());
             }
