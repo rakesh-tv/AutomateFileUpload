@@ -34,7 +34,7 @@ public class Base {
 			Assert.fail("Cannot find properties file");
 		}
 
-		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+ File.separator+"chromedriver");
+		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+ File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
