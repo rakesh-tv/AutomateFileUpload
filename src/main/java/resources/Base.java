@@ -33,8 +33,10 @@ public class Base {
 		}catch (IOException e){
 			Assert.fail("Cannot find properties file");
 		}
-
-		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+ File.separator+"chromedriver.exe");
+		if(System.getProperty("os.name").startsWith("Mac"))
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+ File.separator+"chromedriver");
+		else
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+ File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
