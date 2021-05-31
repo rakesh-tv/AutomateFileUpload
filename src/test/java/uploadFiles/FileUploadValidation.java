@@ -7,6 +7,7 @@ import org.testng.annotations.*;
 import pages.DeliveryDetailPage;
 import pages.LoginPage;
 import resources.Base;
+import resources.EmailUtil;
 import resources.Util;
 import resources.WebWaits;
 
@@ -48,6 +49,7 @@ public class FileUploadValidation extends Base {
     public void tearDown(){
         extent.flush();
         driver.quit();
+        new EmailUtil().emailReport();
     }
 
     @DataProvider(name = "getFilesToUpload")

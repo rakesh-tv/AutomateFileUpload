@@ -2,4 +2,4 @@
 
 To execute - run from project directory "mvn clean test -
 
-Works in uploading .csv files with size less than 5MB
+Works in uploading .csv files with size less than 5MB and File Name Should Starts With ReturnLogisticsServiceability
