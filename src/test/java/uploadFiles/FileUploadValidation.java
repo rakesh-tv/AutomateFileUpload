@@ -21,9 +21,9 @@ public class FileUploadValidation extends Base {
     @BeforeSuite
     public void initializeAndNavigateToFileUploadPage() {
         driver = initializeDriver();
-        new LoginPage(driver)
-                .loginAndSelectAuthorityGroup()
-                .selectTshipDelivery();
+//        new LoginPage(driver)
+//                .loginAndSelectAuthorityGroup()
+//                .selectTshipDelivery();
     }
 
     @Test(dataProvider = "getFilesToUpload")
@@ -37,8 +37,8 @@ public class FileUploadValidation extends Base {
         else if(!Util.checkReturnFileName(file)){
             test.log(Status.FAIL, "Incorrect file name. Return File Name Should Starts With ReturnLogisticsServiceability.\n File name : " + file);
             Assert.fail();}
-        else if (new DeliveryDetailPage(driver).uploadFileAndReturnResult(file))
-            test.log(Status.PASS, "File name : " + file);
+//        else if (new DeliveryDetailPage(driver).uploadFileAndReturnResult(file))
+//            test.log(Status.PASS, "File name : " + file);
         else{
             test.log(Status.FAIL, "Upload Failed. File name : " + file);
             Assert.fail();}
