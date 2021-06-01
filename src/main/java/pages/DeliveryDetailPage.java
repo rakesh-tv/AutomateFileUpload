@@ -33,10 +33,11 @@ public class DeliveryDetailPage extends WebWaits {
                                         .collect(Collectors.toList());
         filerElements.get(0).sendKeys("TSHIP Delivery TAT");
         getElement(deliverItem).click();
+        waitForSomeTime(10);
+
     }
 
     public Boolean uploadFileAndReturnResult(String filePath){
-        waitForSomeTime(5);
         driver.findElement(returnFileUpload).sendKeys(filePath);
         if(waitForElementToBeVisible(fileUploadSuccessMsg, 30)) {
             getElement(fileUploadSuccessOKButton).click();
