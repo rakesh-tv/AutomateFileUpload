@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Base {
@@ -54,6 +55,17 @@ public class Base {
 
 		extent =new ExtentReports();
 		extent.attachReporter(reporter);
+	}
+
+	public String getScreenShotPath(String testCaseName,WebDriver driver) throws IOException
+	{
+		String filePath = System.getProperty("user.dir")+ File.separator+"reports"+File.separator+testCaseName+new Random().nextInt(1000) +".png";
+		TakesScreenshot ts=(TakesScreenshot) driver;
+		File source =ts.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(source,new File(filePath));
+		return filePath;
+
+
 	}
 
 }
