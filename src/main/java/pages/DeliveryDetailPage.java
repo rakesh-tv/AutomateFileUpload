@@ -41,7 +41,7 @@ public class DeliveryDetailPage extends WebWaits {
         driver.findElement(returnFileUpload).sendKeys(filePath);
         if(waitForElementToBeVisible(fileUploadSuccessMsg, 30)) {
             getElement(fileUploadSuccessOKButton).click();
-            waitForSomeTime(300); //wait 5 mins after every upload
+            waitForSomeTime(Integer.parseInt(System.getProperty("waitBetweenUpload"))*60); //wait 5 mins after every upload
             return true;
         }
         else{
