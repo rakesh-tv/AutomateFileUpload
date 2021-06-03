@@ -29,8 +29,10 @@ public class FileUploadValidation extends Base {
     public void uploadFileAndValidate( String file) {
 
         test = extent.createTest("uploadFileAndValidate");
-
-        if(!Util.checkReturnFileName(file)){
+        if (new File(file).getAbsoluteFile().length() > 5242880) {
+            test.log(Status.FAIL, "File size too big. File name : " + file);
+            Assert.fail("File size too big. File name : " + file);}
+        else if(!Util.checkReturnFileName(file)){
             test.log(Status.FAIL, "Incorrect file name. Return File Name Should Start With ReturnLogisticsServiceability.\n File name : " + file);
             Assert.fail("Incorrect file name. Return File Name Should Start With ReturnLogisticsServiceability.\n File name : " + file);}
         else if (new DeliveryDetailPage(driver).uploadFileAndReturnResult(file))
