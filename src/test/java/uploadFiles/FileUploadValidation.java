@@ -39,7 +39,7 @@ public class FileUploadValidation extends Base {
             test.log(Status.PASS, "File name : " + file);
         else{
             test.log(Status.FAIL, "Upload Failed. File name : " + file);
-            Assert.fail();}
+            Assert.fail("Upload Failed.");}
 
     }
 

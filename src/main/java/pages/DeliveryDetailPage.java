@@ -14,9 +14,7 @@ public class DeliveryDetailPage extends WebWaits {
     By deliverItem = By.xpath("//*[contains(@class,'treeCellInner')]//*[text()='TSHIP Delivery TAT']");
     By returnFileUpload = By.xpath("//*[contains(@class,'techouts_widgets_tshipdeliverytatwidget')]//input[@name]");
     By fileUploadSuccessMsg = By.xpath("//*[contains(@class,'label') and text()='File uploaded successfully']");
-    By fileUploadSuccessOKButton = By.xpath("//button[text()='OK']");
-    By uploadFileErrorMessage = By.xpath("//*[contains(@class,'error_class') and contains(text(),'Unable to Upload File Please try again')]");
-    By uploadFileIncorrectNameErrorMessage = By.xpath("//*[contains(@class,'error_class') and contains(text(),'Return File Name Should Starts With ReturnLogisticsServiceability')]");
+    By fileUploadOKButton = By.xpath("//button[text()='OK']");
     By ddOnSignIn = By.xpath("//*[contains(@class,'caption') and text()='Tata BUC']");
 
     WebDriver driver;
@@ -29,8 +27,8 @@ public class DeliveryDetailPage extends WebWaits {
     public void selectTshipDelivery() {
         waitForElementToBeVisible(ddOnSignIn, 30);
         List<WebElement> filerElements = driver.findElements(deliveryFilter)
-                                        .stream().filter(element -> element.isDisplayed())
-                                        .collect(Collectors.toList());
+                .stream().filter(element -> element.isDisplayed())
+                .collect(Collectors.toList());
         filerElements.get(0).sendKeys("TSHIP Delivery TAT");
         getElement(deliverItem).click();
         waitForSomeTime(10);
@@ -38,14 +36,24 @@ public class DeliveryDetailPage extends WebWaits {
     }
 
     public Boolean uploadFileAndReturnResult(String filePath){
+        //Handle exception case where user is logged out
+        LoginPage loginPage = new LoginPage(driver);
+        if(waitForElementToBeVisible(loginPage.loginButton, 1)){
+            loginPage.loginAndSelectAuthorityGroup();
+            selectTshipDelivery();
+        }
+        //Acknowledge failure pop up and try next file
+        else if(waitForElementToBeVisible(fileUploadOKButton,1)){
+            getElement(fileUploadOKButton).click();
+        }
         driver.findElement(returnFileUpload).sendKeys(filePath);
         if(waitForElementToBeVisible(fileUploadSuccessMsg, 30)) {
-            getElement(fileUploadSuccessOKButton).click();
-            waitForSomeTime(Integer.parseInt(System.getProperty("waitBetweenUpload"))*60); //wait 5 mins after every upload
+            getElement(fileUploadOKButton).click();
+            waitForSomeTime(Integer.parseInt(System.getProperty("waitBetweenUpload"))*60); //wait between every upload
             return true;
         }
         else{
-            waitForSomeTime(300); //wait 5 mins after every upload
+            waitForSomeTime(Integer.parseInt(System.getProperty("waitBetweenUpload"))*60); //wait between every upload
             return false;
         }
     }
