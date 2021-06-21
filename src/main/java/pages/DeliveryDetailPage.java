@@ -49,7 +49,7 @@ public class DeliveryDetailPage extends WebWaits {
         driver.findElement(returnFileUpload).sendKeys(filePath);
         if(waitForElementToBeVisible(fileUploadSuccessMsg, 30)) {
             getElement(fileUploadOKButton).click();
-            waitForSomeTime(Integer.parseInt(System.getProperty("waitBetweenUpload"))*60); //wait between every upload
+            waitForSomeTime((Integer.parseInt(System.getProperty("waitBetweenUpload")) - 1)*60); //wait between every upload
             return true;
         }
         else{
