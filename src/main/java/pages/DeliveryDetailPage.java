@@ -53,7 +53,7 @@ public class DeliveryDetailPage extends WebWaits {
             return true;
         }
         else{
-            waitForSomeTime(Integer.parseInt(System.getProperty("waitBetweenUpload"))*60); //wait between every upload
+            waitForSomeTime((Integer.parseInt(System.getProperty("waitBetweenUpload")) - 1)*60); //wait between every upload
             return false;
         }
     }
