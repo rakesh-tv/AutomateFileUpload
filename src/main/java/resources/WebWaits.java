@@ -2,6 +2,7 @@ package resources;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.Time;
@@ -27,12 +28,10 @@ public class WebWaits extends Base{
     }
 
     public Boolean waitForElementToBeVisible(By locator, long timeInSeconds) {
-        wait = new WebDriverWait(driver, timeInSeconds);
+        Wait waitForElement = new WebDriverWait(driver, timeInSeconds);
         try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            wait.until(ExpectedConditions.elementToBeClickable(locator));
-        } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException se) {
+            waitForElement.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        } catch (TimeoutException | NoSuchElementException se) {
             return false;
         }
         return true;
