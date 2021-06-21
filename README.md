@@ -1,5 +1,5 @@
 # AutomateFileUpload
 
-To execute - run from project directory "mvn clean test -
+To execute - run from project directory "mvn clean test -DfolderPath={path}"
 
 Works in uploading .csv files with size less than 5MB and File Name Should Starts With ReturnLogisticsServiceability
